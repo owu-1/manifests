@@ -5451,13 +5451,14 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
+      hostNetwork: true
       containers:
         - name: cert-manager-webhook
           image: "quay.io/jetstack/cert-manager-webhook:v1.12.2"
           imagePullPolicy: IfNotPresent
           args:
           - --v=2
-          - --secure-port=10250
+          - --secure-port=10260
           - --dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)
           - --dynamic-serving-ca-secret-name=cert-manager-webhook-ca
           - --dynamic-serving-dns-names=cert-manager-webhook
@@ -5467,7 +5468,7 @@ spec:
           ports:
           - name: https
             protocol: TCP
-            containerPort: 10250
+            containerPort: 10260
           - name: healthcheck
             protocol: TCP
             containerPort: 6080
